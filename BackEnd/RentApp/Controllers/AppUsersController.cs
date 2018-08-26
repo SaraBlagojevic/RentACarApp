@@ -13,22 +13,43 @@ using RentApp.Persistance;
 
 namespace RentApp.Controllers
 {
+    [RoutePrefix("appUser")]
     public class AppUsersController : ApiController
     {
         private RADBContext db = new RADBContext();
 
-        // GET: api/AppUsers
-        [Authorize (Roles ="Admin")]
-        public IQueryable<AppUser> GetAppUsers()
+        [HttpGet]
+        [Route("appUser", Name = "AppUserApi")]
+        public IHttpActionResult GetAppUsers()
         {
-            return db.AppUsers;
+            var l = this.db.AppUsers.ToList();
+            return Ok(l);
         }
 
-        // GET: api/AppUsers/5
+        [HttpGet]
+        [Route("managers")]
+        public IHttpActionResult GetManagers()
+        {
+            IList<AppUser> retList = new List<AppUser>();
+            var l = this.db.AppUsers.ToList();
+            foreach (var user in l)
+            {
+                if (user.Role == "Manager")
+                {
+                    retList.Add(user);
+                }
+            }
+
+            return Ok(retList);
+        }
+
+        [HttpGet]
+        [Route("appUsers/{id}")]
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetAppUser(int id)
         {
             AppUser appUser = db.AppUsers.Find(id);
+
             if (appUser == null)
             {
                 return NotFound();
@@ -37,7 +58,23 @@ namespace RentApp.Controllers
             return Ok(appUser);
         }
 
-        // PUT: api/AppUsers/5
+        [HttpGet]
+        [Route("manager/{username}")]
+        [ResponseType(typeof(AppUser))]
+        public IHttpActionResult GetAppUser(string username)
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(x => x.Username == username);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(appUser);
+        }
+
+        [HttpPut]
+        [Route("appUser/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutAppUser(int id, AppUser appUser)
         {
@@ -72,7 +109,8 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/AppUsers
+        [HttpPost]
+        [Route("appUser")]
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult PostAppUser(AppUser appUser)
         {
@@ -84,11 +122,11 @@ namespace RentApp.Controllers
             db.AppUsers.Add(appUser);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
+            return CreatedAtRoute("AppUserApi", new { id = appUser.Id }, appUser);
         }
 
-        // DELETE: api/AppUsers/5
-        [Authorize(Roles = "Admin")]
+        [HttpDelete]
+        [Route("appUser/{id}")]
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult DeleteAppUser(int id)
         {

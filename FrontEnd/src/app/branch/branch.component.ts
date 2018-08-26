@@ -8,6 +8,7 @@ import {HttpBranchService} from "./branch.service"
 import {Branch} from "./branch.model";
 import {BranchAddComponent} from "./branch-add/branch-add.component"
 import {BranchEditComponent} from "./branch-edit/branch-edit.component"
+import { HttpUsersService } from '../managers/users.service';
 
 @Component({
   selector: 'app-branch',
@@ -16,6 +17,7 @@ import {BranchEditComponent} from "./branch-edit/branch-edit.component"
   providers:[HttpBranchService]
 })
 export class BranchComponent implements OnInit {
+  [x: string]: any;
 
   private branches:Array<Branch>;
   branch:Branch;
@@ -31,6 +33,7 @@ export class BranchComponent implements OnInit {
   private role:string;
 
   constructor(private httpBranchService:HttpBranchService,
+              private httpUsersService:HttpUsersService,
               public dialog:MdDialog,
               private snackBar:MdSnackBar) { }
 
@@ -78,7 +81,20 @@ export class BranchComponent implements OnInit {
       }else if(this.role=="Manager"){
           this.managerRole=true;
           this.userUndefined=false;
+          this.setUserManager();
       }
+  }
+
+  setUserManager(){
+    this.httpUsersService.getUser(localStorage.getItem('username')).subscribe(
+      (res: any) => {
+        this.userManager=res;
+        if(this.userManager.isBanned!=undefined){
+            this.managerBanned=this.userManager.isBanned;
+          }
+        console.log(this.userManager);},
+        error => {alert("Unsuccessful fetch operation!"); console.log(error);}
+    );
   }
 
   editClick(branch:Branch){

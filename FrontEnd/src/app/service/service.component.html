@@ -81,7 +81,7 @@
 </div>
 
 
-<span *ngIf="managerRole==true " class="done">
+<span *ngIf="managerRole==true && managerBanned==false " class="done">
     <button md-fab  color="primary" (click) = "openServiceNewDialog()" >
     <md-icon>add</md-icon>
     </button>

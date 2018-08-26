@@ -7,13 +7,13 @@ namespace RentApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class carMigration : IMigrationMetadata
+    public sealed partial class addRentMIg : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(carMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addRentMIg));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806151411377_carMigration"; }
+            get { return "201808261517237_addRentMIg"; }
         }
         
         string IMigrationMetadata.Source

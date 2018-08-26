@@ -285,21 +285,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationsHub.cs" />
-    <Compile Include="Migrations\201806151346221_initMigModel.cs" />
-    <Compile Include="Migrations\201806151346221_initMigModel.Designer.cs">
-      <DependentUpon>201806151346221_initMigModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806151411377_carMigration.cs" />
-    <Compile Include="Migrations\201806151411377_carMigration.Designer.cs">
-      <DependentUpon>201806151411377_carMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806151608438_changToImage.cs" />
-    <Compile Include="Migrations\201806151608438_changToImage.Designer.cs">
-      <DependentUpon>201806151608438_changToImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806180005004_appUser.cs" />
-    <Compile Include="Migrations\201806180005004_appUser.Designer.cs">
-      <DependentUpon>201806180005004_appUser.cs</DependentUpon>
+    <Compile Include="Migrations\201808261517237_addRentMIg.cs" />
+    <Compile Include="Migrations\201808261517237_addRentMIg.Designer.cs">
+      <DependentUpon>201808261517237_addRentMIg.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -414,17 +402,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806151346221_initMigModel.resx">
-      <DependentUpon>201806151346221_initMigModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806151411377_carMigration.resx">
-      <DependentUpon>201806151411377_carMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806151608438_changToImage.resx">
-      <DependentUpon>201806151608438_changToImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806180005004_appUser.resx">
-      <DependentUpon>201806180005004_appUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808261517237_addRentMIg.resx">
+      <DependentUpon>201808261517237_addRentMIg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -4,6 +4,7 @@ import {HttpVehicleService} from "./vehicle.service"
 import {Vehicle} from "./vehicle.model";
 import {VehicleAddComponent} from "./vehicle-add/vehicle-add.component"
 import {VehicleEditComponent} from "./vehicle-edit/vehicle-edit.component"
+import { HttpUsersService } from '../managers/users.service';
 
 @Component({
   selector: 'app-vehicle',
@@ -12,6 +13,7 @@ import {VehicleEditComponent} from "./vehicle-edit/vehicle-edit.component"
   providers:[HttpVehicleService]
 })
 export class VehicleComponent implements OnInit {
+  [x: string]: any;
 
   private vehicles:Array<Vehicle>;
   vehicle:Vehicle;
@@ -26,6 +28,7 @@ export class VehicleComponent implements OnInit {
   private role:string;
 
   constructor(private httpVehicleService:HttpVehicleService,
+              private httpUsersService:HttpUsersService,
               public dialog:MdDialog,
               private snackBar:MdSnackBar) { }
 
@@ -72,7 +75,19 @@ export class VehicleComponent implements OnInit {
       }else if(this.role=="Manager"){
           this.managerRole=true;
           this.userUndefined=false;
+          this.setUserManager();
       }
+  }
+  setUserManager(){
+    this.httpUsersService.getUser(localStorage.getItem('username')).subscribe(
+      (res: any) => {
+        this.userManager=res;
+        if(this.userManager.isBanned!=undefined){
+            this.managerBanned=this.userManager.isBanned;
+          }
+        console.log(this.userManager);},
+        error => {alert("Unsuccessful fetch operation!"); console.log(error);}
+    );
   }
 
   getNotification(evt) {

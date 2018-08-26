@@ -8,6 +8,7 @@ import {HttpServiceService} from "./service.service"
 import {Service} from "./service.model";
 import {ServiceAddComponent} from "./service-add/service-add.component"
 import {ServiceEditComponent} from "./service-edit/service-edit.component";
+import { HttpUsersService } from '../managers/users.service';
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
@@ -15,6 +16,7 @@ import {ServiceEditComponent} from "./service-edit/service-edit.component";
   providers:[HttpServiceService]
 })
 export class ServiceComponent implements OnInit {
+  [x: string]: any;
 
   private services:Array<Service>;
   service:Service;
@@ -30,6 +32,7 @@ export class ServiceComponent implements OnInit {
   private role:string;
 
   constructor(private httpServiceService:HttpServiceService,
+              private httpUsersService:HttpUsersService,
               public dialog:MdDialog,
               private snackBar:MdSnackBar) { }
 
@@ -78,8 +81,20 @@ export class ServiceComponent implements OnInit {
       }else if(this.role=="Manager"){
           this.managerRole=true;
           this.userUndefined=false;
-          
+          this.setUserManager();
       }
+  }
+
+  setUserManager(){
+    this.httpUsersService.getUser(localStorage.getItem('username')).subscribe(
+      (res: any) => {
+        this.userManager=res;
+        if(this.userManager.isBanned!=undefined){
+            this.managerBanned=this.userManager.isBanned;
+          }
+        console.log(this.userManager);},
+        error => {alert("Unsuccessful fetch operation!"); console.log(error);}
+    );
   }
 
   editClick(service:Service){

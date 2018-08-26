@@ -122,6 +122,10 @@ export class AppComponent {
             route: ['/vehicleType'],
             label: "VehicleType"
         },
+        {
+            route: ['/managers'],
+            label: "Managers"
+        }
     ]
      
 }

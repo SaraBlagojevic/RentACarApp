@@ -34,6 +34,8 @@ import {HttpServiceService} from "./service/service.service";
 import { VehicleAddComponent } from './vehicle/vehicle-add/vehicle-add.component';
 import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
 import { HttpVehicleService } from './vehicle/vehicle.service';
+import { ManagersComponent } from './managers/managers.component';
+import { HttpUsersService } from './managers/users.service';
 
 const Routes=[
   {path: "register",component:RegisterComponent},
@@ -44,6 +46,7 @@ const Routes=[
   {path: "branch",component:BranchComponent,},
   {path: "vehicle",component:VehicleComponent, },
   {path: "vehicleType",component:VehicleTypeComponent, },
+  {path:"managers",component:ManagersComponent}
   
 ]
 @NgModule({
@@ -66,7 +69,8 @@ const Routes=[
     BranchEditComponent,
     MapComponent,
     VehicleAddComponent,
-    VehicleEditComponent
+    VehicleEditComponent,
+    ManagersComponent
     
   ],
   entryComponents: [ImageuploadComponent,BranchAddComponent,MapComponent,BranchEditComponent,
@@ -80,7 +84,8 @@ const Routes=[
     MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule,MaterialModule,MdNativeDateModule,MdSnackBarModule,
     BrowserAnimationsModule,NgxPaginationModule,AgmCoreModule.forRoot({apiKey: 'AIzaSyAtvp71DTpNaEw59EcmxvFMQOKRyRUiArg'})
   ],
-  providers: [HttpAuthenticationService,AppUrl,AdminGuard,ManagerGuard,HttpVehicleTypeService,HttpBranchService,HttpServiceService,HttpVehicleService],
+  providers: [HttpAuthenticationService,AppUrl,AdminGuard,ManagerGuard,HttpVehicleTypeService,HttpBranchService,HttpServiceService,HttpVehicleService
+  ,HttpUsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

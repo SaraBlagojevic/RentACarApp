@@ -17,7 +17,8 @@ namespace RentApp.Models.Entities
         public string Logo { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
-        
+        public bool Approved { get; set; }
+
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         public virtual ICollection<Branch> Branches { get; set; }
     }

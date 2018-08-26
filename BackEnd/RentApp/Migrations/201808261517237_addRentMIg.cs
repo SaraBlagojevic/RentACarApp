@@ -3,7 +3,7 @@ namespace RentApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initMigModel : DbMigration
+    public partial class addRentMIg : DbMigration
     {
         public override void Up()
         {
@@ -12,10 +12,12 @@ namespace RentApp.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Username = c.String(),
                         FullName = c.String(),
                         Email = c.String(),
+                        Role = c.String(),
                         Birthday = c.DateTime(),
-                        Activated = c.Boolean(nullable: false),
+                        isBanned = c.Boolean(nullable: false),
                         PersonalDocument = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -27,13 +29,14 @@ namespace RentApp.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Start = c.DateTime(),
                         End = c.DateTime(),
-                        Branch_Id = c.Int(),
-                        Vehicle_Id = c.Int(),
+                        Branch_Id = c.Int(nullable: false),
+                        Vehicle_Id = c.Int(nullable: false),
+                        Approved = c.Boolean(nullable: false),
                         AppUser_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Branches", t => t.Branch_Id)
-                .ForeignKey("dbo.Vehicles", t => t.Vehicle_Id)
+                .ForeignKey("dbo.Branches", t => t.Branch_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Vehicles", t => t.Vehicle_Id, cascadeDelete: true)
                 .ForeignKey("dbo.AppUsers", t => t.AppUser_Id)
                 .Index(t => t.Branch_Id)
                 .Index(t => t.Vehicle_Id)
@@ -63,6 +66,7 @@ namespace RentApp.Migrations
                         Logo = c.String(),
                         Email = c.String(),
                         Description = c.String(),
+                        Approved = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -71,17 +75,18 @@ namespace RentApp.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Model = c.String(),
+                        CarModel = c.String(),
                         Manufactor = c.String(),
                         Year = c.Int(nullable: false),
                         Description = c.String(),
                         PricePerHour = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Unavailable = c.Boolean(nullable: false),
+                        Aveable = c.Boolean(nullable: false),
+                        Image = c.String(),
                         TypeOfVehicle_Id = c.Int(nullable: false),
-                        Service_Id = c.Int(nullable: false),
+                        Service_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Services", t => t.Service_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Services", t => t.Service_Id)
                 .ForeignKey("dbo.TypeOfVehicles", t => t.TypeOfVehicle_Id, cascadeDelete: true)
                 .Index(t => t.TypeOfVehicle_Id)
                 .Index(t => t.Service_Id);
