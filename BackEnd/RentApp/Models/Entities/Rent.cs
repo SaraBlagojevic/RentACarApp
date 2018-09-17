@@ -16,8 +16,6 @@ namespace RentApp.Models.Entities
         public int Branch_Id { get; set; }
         public virtual Branch Branch { get; set; }
 
-        [ForeignKey("Vehicle")]
-        public int Vehicle_Id { get; set; }
         public virtual Vehicle Vehicle { get; set; }
 
         public bool Approved { get; set; }

@@ -14,7 +14,7 @@ namespace RentApp.Models.Entities
         public int Year { get; set; }
         public string Description { get; set; }
         public decimal PricePerHour { get; set; }
-        public bool Aveable { get; set; }
+        public bool Available { get; set; }
 
         public string Image { get; set; }
 
@@ -27,8 +27,10 @@ namespace RentApp.Models.Entities
         public int TypeOfVehicle_Id { get; set; }
         public virtual TypeOfVehicle TypeOfVehicle { get; set; }
 
-       
+        [ForeignKey("Service")]
+        public int Service_Id { get; set; }
         public virtual Service Service { get; set; }
+
 
         public virtual ICollection<Rent> Rents { get; set; }
 
