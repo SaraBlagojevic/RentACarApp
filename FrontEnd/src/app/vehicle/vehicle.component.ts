@@ -5,6 +5,7 @@ import {Vehicle} from "./vehicle.model";
 import {VehicleAddComponent} from "./vehicle-add/vehicle-add.component"
 import {VehicleEditComponent} from "./vehicle-edit/vehicle-edit.component"
 import { HttpUsersService } from '../managers/users.service';
+import { RentComponent } from '../rent/rent.component';
 
 @Component({
   selector: 'app-vehicle',
@@ -127,7 +128,18 @@ export class VehicleComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
-
   
   }
+  rentVehicleDialog(vehicle:Vehicle)
+  {
+    let config = new MdDialogConfig();
+    config.data = vehicle;
+
+    let dialogRef = this.dialog.open(RentComponent,config);
+    dialogRef.componentInstance.eVehicle = vehicle;
+    dialogRef.afterClosed().subscribe(result => {
+    this.ngOnInit();
+  });
+  }
+
 }

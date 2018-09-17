@@ -36,6 +36,7 @@ import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.compon
 import { HttpVehicleService } from './vehicle/vehicle.service';
 import { ManagersComponent } from './managers/managers.component';
 import { HttpUsersService } from './managers/users.service';
+import { RentComponent } from './rent/rent.component';
 
 const Routes=[
   {path: "register",component:RegisterComponent},
@@ -46,7 +47,8 @@ const Routes=[
   {path: "branch",component:BranchComponent,},
   {path: "vehicle",component:VehicleComponent, },
   {path: "vehicleType",component:VehicleTypeComponent, },
-  {path:"managers",component:ManagersComponent}
+  {path:"managers",component:ManagersComponent},
+  {path:"rent",component:RentComponent}
   
 ]
 @NgModule({
@@ -70,7 +72,8 @@ const Routes=[
     MapComponent,
     VehicleAddComponent,
     VehicleEditComponent,
-    ManagersComponent
+    ManagersComponent,
+    RentComponent
     
   ],
   entryComponents: [ImageuploadComponent,BranchAddComponent,MapComponent,BranchEditComponent,

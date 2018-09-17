@@ -20,9 +20,18 @@
               Price per hour: {{vehicle.PricePerHour}}
          </p>
         </md-card-content>
+       <div *ngIf="appUser==true">
+        <md-card-actions>
+          <button md-fab color="warn"  (click) = "rentVehicleDialog(vehicle)" >
+              <md-icon >edit</md-icon>
+         </button>
+      </md-card-actions>
+    </div>
       </md-card>
     </div>
   </div>
+
+  
 
 
 <div *ngIf="managerRole==true || adminRole == true">
