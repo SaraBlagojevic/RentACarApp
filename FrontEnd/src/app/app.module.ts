@@ -37,6 +37,7 @@ import { HttpVehicleService } from './vehicle/vehicle.service';
 import { ManagersComponent } from './managers/managers.component';
 import { HttpUsersService } from './managers/users.service';
 import { RentComponent } from './rent/rent.component';
+import {HttpRentService} from "../app/rent/rent.service"
 
 const Routes=[
   {path: "register",component:RegisterComponent},
@@ -88,7 +89,7 @@ const Routes=[
     BrowserAnimationsModule,NgxPaginationModule,AgmCoreModule.forRoot({apiKey: 'AIzaSyAtvp71DTpNaEw59EcmxvFMQOKRyRUiArg'})
   ],
   providers: [HttpAuthenticationService,AppUrl,AdminGuard,ManagerGuard,HttpVehicleTypeService,HttpBranchService,HttpServiceService,HttpVehicleService
-  ,HttpUsersService],
+  ,HttpUsersService,HttpRentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,9 +12,12 @@ namespace RentApp.Models.Entities
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
 
-        [ForeignKey("Branch")]
-        public int Branch_Id { get; set; }
-        public virtual Branch Branch { get; set; }
+        [ForeignKey("BranchTook")]
+        public int BranchTook_Id { get; set; }
+        public virtual Branch BranchTook { get; set; }
+
+        public int BranchReturn_Id { get; set; }
+        public virtual Branch BranchReturn { get; set; }
 
         public virtual Vehicle Vehicle { get; set; }
 

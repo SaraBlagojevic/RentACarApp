@@ -134,6 +134,8 @@ export class VehicleComponent implements OnInit {
   {
     let config = new MdDialogConfig();
     config.data = vehicle;
+    config.height='530px';
+    config.width='350px';
 
     let dialogRef = this.dialog.open(RentComponent,config);
     dialogRef.componentInstance.eVehicle = vehicle;

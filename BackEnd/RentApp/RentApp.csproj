@@ -293,6 +293,10 @@
     <Compile Include="Migrations\201809172020415_serviceFK.Designer.cs">
       <DependentUpon>201809172020415_serviceFK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809182223082_branchTook.cs" />
+    <Compile Include="Migrations\201809182223082_branchTook.Designer.cs">
+      <DependentUpon>201809182223082_branchTook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -411,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809172020415_serviceFK.resx">
       <DependentUpon>201809172020415_serviceFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809182223082_branchTook.resx">
+      <DependentUpon>201809182223082_branchTook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

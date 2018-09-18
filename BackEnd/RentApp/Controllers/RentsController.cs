@@ -13,17 +13,23 @@ using RentApp.Persistance;
 
 namespace RentApp.Controllers
 {
+    [RoutePrefix("rent")]
     public class RentsController : ApiController
     {
         private RADBContext db = new RADBContext();
 
         // GET: api/Rents
-        public IEnumerable<Rent> GetRents()
+        [HttpGet]
+        [Route("rents", Name = "RentApi")]
+        public IHttpActionResult GetRents()
         {
-            return db.Rents;
+            var l = db.Rents.ToList();
+            return Ok(l);
         }
 
         // GET: api/Rents/5
+        [HttpGet]
+        [Route("rent/{id}")]
         [ResponseType(typeof(Rent))]
         public IHttpActionResult GetRent(int id)
         {
@@ -32,11 +38,12 @@ namespace RentApp.Controllers
             {
                 return NotFound();
             }
-
             return Ok(rent);
         }
 
         // PUT: api/Rents/5
+        [HttpPut]
+        [Route("rent/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRent(int id, Rent rent)
         {
@@ -70,20 +77,19 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
         // POST: api/Rents
+        [HttpPost]
+        [Route("rent")]
         [ResponseType(typeof(Rent))]
-        public IHttpActionResult PostRent(Rent rent)
+        public IHttpActionResult PostBranch(Rent rent)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             db.Rents.Add(rent);
             db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = rent.Id }, rent);
+            return CreatedAtRoute("RentApi", new { id = rent.Id }, rent);
         }
 
         // DELETE: api/Rents/5

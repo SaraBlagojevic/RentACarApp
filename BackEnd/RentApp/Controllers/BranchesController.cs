@@ -40,6 +40,14 @@ namespace RentApp.Controllers
 
             return Ok(branch);
         }
+        [HttpGet]
+        [Route("brancheForServiceId/{id}")]
+        public IHttpActionResult GetBranchesForServiceId(int id)
+        {
+            var l  = db.Branches.Where(x => x.Service_Id == id);
+            return Ok(l);
+        }
+
         [Authorize(Roles = "Manager,Admin")]
         [HttpPut]
         [Route("branch/{id}")]

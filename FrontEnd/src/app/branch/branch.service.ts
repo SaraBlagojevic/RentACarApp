@@ -70,5 +70,10 @@ export class HttpBranchService{
         return this.http.put(this.appUrl.RootLocation+'branch/branch/'+branch.Id, branch, opts);
     }
 
+    getBranchesForService(id:number)
+    {
+        return this.http.get(this.appUrl.RootLocation+'branch/brancheForServiceId/'+id).map(this.extractData);
+    }
+
     
 }
