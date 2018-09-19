@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RentApp.Models.Entities;
@@ -16,6 +18,7 @@ namespace RentApp.Controllers
     [RoutePrefix("rent")]
     public class RentsController : ApiController
     {
+        public const string ServerUrl = "http://localhost:51680";
         private RADBContext db = new RADBContext();
 
         // GET: api/Rents
@@ -106,6 +109,28 @@ namespace RentApp.Controllers
             db.SaveChanges();
 
             return Ok(rent);
+        }
+
+        [HttpGet]
+        [Route("rent/image/{id}")]
+        public string GetImage(int id)
+        {
+            Rent rent = this.db.Rents.FirstOrDefault(x => x.Id == id);
+            if (rent.Image == null)
+            {
+                return null;
+            }
+
+            var filePath = rent.Image;
+            var fullFilePath = HttpContext.Current.Server.MapPath("~/Content/Logos/" + Path.GetFileName(filePath));
+            var relativePath = ServerUrl + "/Content/Logos/" + Path.GetFileName(filePath);
+
+            if (File.Exists(fullFilePath))
+            {
+                return relativePath;
+
+            }
+            return null;
         }
 
         protected override void Dispose(bool disposing)

@@ -19,6 +19,17 @@ export class HttpRentService{
         let body = res.json();
         return body || [];
     }
+    getImageUrlForRent(id:number):Observable<Response>{
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+
+        return this.http.get(this.appUrl.RootLocation+'rent/rent/image/'+id , opts);
+    }
+
 
     getRent(Id:number){
         return this.http.get(this.appUrl.RootLocation+'rent/rent/'+Id).map(this.extractData);

@@ -9,8 +9,9 @@ namespace RentApp.Models.Entities
     public class Rent
     {
         public int Id { get; set; }
-        public DateTime? Start { get; set; }
-        public DateTime? End { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string Image { get; set; }
 
         [ForeignKey("BranchTook")]
         public int BranchTook_Id { get; set; }
@@ -19,6 +20,7 @@ namespace RentApp.Models.Entities
         public int BranchReturn_Id { get; set; }
         public virtual Branch BranchReturn { get; set; }
 
+        public int Vehicle_Id { get; set; }
         public virtual Vehicle Vehicle { get; set; }
 
         public bool Approved { get; set; }

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle } from '../vehicle/vehicle.model';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdDialog, MdDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { HttpRentService } from './rent.service';
 import { Rent } from './rent.model';
 import { Branch } from '../branch/branch.model';
 import { HttpBranchService } from '../branch/branch.service';
 import { NgForm } from '@angular/forms';
+import { ImageuploadComponent } from '../imageupload/imageupload.component';
 
 @Component({
   selector: 'app-rent',
@@ -25,7 +26,9 @@ export class RentComponent implements OnInit {
   public branches: Array<Branch>;
 
   constructor(
-    private httpRentService : HttpRentService,private httpBranchService:HttpBranchService ,private router: Router,
+    private httpRentService : HttpRentService,private httpBranchService:HttpBranchService,
+    private router: Router,
+    public dialog:MdDialog,
     private snackBar: MdSnackBar)  { }
 
   ngOnInit() {
@@ -73,6 +76,7 @@ export class RentComponent implements OnInit {
     this.postRent.Vehicle_Id = this.eVehicle.Id;
     this.postRent.BranchTook_Id = rent.BranchTook_Id;
     this.postRent.BranchReturn_Id = rent.BranchReturn_Id;
+    this.postRent.Image = rent.Image;
 
     //g = this.checkRoomReservations(room,roomRes);
 
@@ -92,8 +96,14 @@ export class RentComponent implements OnInit {
     }
    
   }
-  
-      
+  openChooseImagesDialog(){
+    let config = new MdDialogConfig();
+    config.height='530px';
+    config.width='350px';
+
+    let dialogRef = this.dialog.open(ImageuploadComponent,config);
+    dialogRef.componentInstance.rent=this.nRent;
+  }
 
 openSnackBar(message: string, action: string) {
   this.snackBar.open(message, action, {

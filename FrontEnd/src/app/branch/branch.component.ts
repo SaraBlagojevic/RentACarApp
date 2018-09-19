@@ -50,12 +50,12 @@ export class BranchComponent implements OnInit {
           (res: any) => {
             this.branches = res; 
             console.log(this.branches);
-            this.setImagesForAccommodations();},
+            this.setImagesForBranch();},
             error => {alert("Unsuccessful fetch operation!"); console.log(error);}
         );
   }
 
-  setImagesForAccommodations(){
+  setImagesForBranch(){
     
     this.branches.forEach(element => {
         this.httpBranchService.getLogoUrlForBranch(element.Id).subscribe(

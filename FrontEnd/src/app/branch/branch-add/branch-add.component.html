@@ -1,6 +1,6 @@
 <div class="addDialog">
   <h1 md-dialog-title>Add Branch</h1>
-  <form type="form" #f="ngForm" (ngSubmit)="f.form.valid && saveAccommodation(f.value,f)"  novalidate>
+  <form type="form" #f="ngForm" (ngSubmit)="f.form.valid && saveBranch(f.value,f)"  novalidate>
       <div>
           <md-input-container>
           <input  mdInput placeholder="Address" type="text" name="Address" [(ngModel)]="nBranch.Address" #address="ngModel" required />

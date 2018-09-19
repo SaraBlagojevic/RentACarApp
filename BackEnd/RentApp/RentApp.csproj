@@ -297,6 +297,14 @@
     <Compile Include="Migrations\201809182223082_branchTook.Designer.cs">
       <DependentUpon>201809182223082_branchTook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809191934253_documentUpload.cs" />
+    <Compile Include="Migrations\201809191934253_documentUpload.Designer.cs">
+      <DependentUpon>201809191934253_documentUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809192133186_incoming.cs" />
+    <Compile Include="Migrations\201809192133186_incoming.Designer.cs">
+      <DependentUpon>201809192133186_incoming.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -418,6 +426,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809182223082_branchTook.resx">
       <DependentUpon>201809182223082_branchTook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809191934253_documentUpload.resx">
+      <DependentUpon>201809191934253_documentUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809192133186_incoming.resx">
+      <DependentUpon>201809192133186_incoming.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

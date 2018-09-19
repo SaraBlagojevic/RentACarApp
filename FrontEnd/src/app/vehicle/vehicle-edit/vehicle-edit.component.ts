@@ -81,6 +81,7 @@ export class VehicleEditComponent implements OnInit {
       this.vehicleForEdit.Id=this.eVehicle.Id;
       this.vehicleForEdit.CarModel=vehicle.CarModel;
       this.vehicleForEdit.Description=vehicle.Description;
+      this.vehicleForEdit.Year = vehicle.Year;
       this.vehicleForEdit.PricePerHour=vehicle.PricePerHour;
       this.vehicleForEdit.Image=vehicle.Image;
       this.vehicleForEdit.Manufactor = vehicle.Manufactor;

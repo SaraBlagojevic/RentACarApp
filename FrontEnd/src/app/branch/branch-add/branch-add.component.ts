@@ -76,7 +76,7 @@ export class BranchAddComponent implements OnInit {
         });
   }
 
-  saveAccommodation(branch: Branch, form: NgForm){
+  saveBranch(branch: Branch, form: NgForm){
        this.postBranch=new Branch();
        this.postBranch.Address=branch.Address;
        this.postBranch.Longitude=branch.Longitude;

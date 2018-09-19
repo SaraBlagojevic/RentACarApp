@@ -35,7 +35,18 @@
               </md-option>
         </md-select>
          <div *ngIf="f.submitted && !BranchReturn_Id.valid">BranchReturn_Id  is required</div>
-        </div>
+     </div>
+     <div>
+        <md-input-container>
+         <input mdInput type="text" [readonly] = "true" placeholder="Image" name="Image" [(ngModel)]="nRent.Image" #Image="ngModel" required />
+        </md-input-container>
+         <div *ngIf="f.submitted && !Image.valid">Image is required</div>
+     </div>
+     <div>
+        <button type="button" style="margin: 15px;" md-mini-fab color="primary" (click)="openChooseImagesDialog()">
+            <md-icon>image</md-icon>
+        </button>
+     </div>
         
 
         

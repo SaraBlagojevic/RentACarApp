@@ -5,6 +5,7 @@ import {Service} from "../service/service.model"
 import{MdSnackBar} from '@angular/material'
 import { Branch } from '../branch/branch.model';
 import { Vehicle } from '../vehicle/vehicle.model';
+import { Rent } from '../rent/rent.model';
 
 @Component({
   selector: 'app-imageupload',
@@ -16,6 +17,7 @@ export class ImageuploadComponent implements OnInit {
   public service:Service;
   public branch : Branch;
   public vehicle : Vehicle;
+  public rent : Rent;
   public uploader:FileUploader;
   public hasBaseDropZoneOver:boolean = false;
   private token:string;
@@ -45,6 +47,10 @@ export class ImageuploadComponent implements OnInit {
             else if (this.vehicle !== undefined)
             {
               this.vehicle.Image=item.file.name;
+            }
+            else if (this.rent !== undefined)
+            {
+              this.rent.Image=item.file.name;
             }
             this.snackBar.open(response, "", {
                                 duration: 2000,

@@ -13,4 +13,5 @@ export class Rent{
     BranchTook_Id:number;
     BranchReturn:Branch;
     BranchReturn_Id:number;
+    Image:string;
 }
