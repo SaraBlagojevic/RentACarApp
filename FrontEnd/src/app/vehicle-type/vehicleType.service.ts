@@ -12,7 +12,13 @@ export class HttpVehicleTypeService{
     }
 
     getVehicleTypes(): Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"vehicleType/vehicleTypes").map(this.extractData);        
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+"vehicleType/vehicleTypes",opts).map(this.extractData);        
     }
 
     private extractData(res: Response) {
@@ -21,7 +27,13 @@ export class HttpVehicleTypeService{
     }
 
     getVehicleType(Id:number){
-        return this.http.get(this.appUrl.RootLocation+'vehicleType/vehicleType/'+Id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'vehicleType/vehicleType/'+Id,opts).map(this.extractData);
     }
 
     postVehicleType(vehicleType: TypeOfVehicle): Observable<any>  {

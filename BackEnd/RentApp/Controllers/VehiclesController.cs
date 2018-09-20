@@ -38,6 +38,7 @@ namespace RentApp.Controllers
 		}
 
 		[HttpGet]
+        [AllowAnonymous]
         [Route("vehicles", Name = "VehicleApi")]
         public IHttpActionResult GetVehicles()
         {
@@ -59,7 +60,7 @@ namespace RentApp.Controllers
 				return Ok(db.Vehicles.Where(x => x.Available == true).ToList());
 			}
 		}
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("vehicle/{id}")]
         [ResponseType(typeof(Vehicle))]

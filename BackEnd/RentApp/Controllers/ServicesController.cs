@@ -45,7 +45,7 @@ namespace RentApp.Controllers
         }
 
         [HttpGet]
-		[AllowAnonymous]
+		[Authorize]
         [Route("services", Name = "ServiceApi")]
         public IHttpActionResult GetServices()
         {
@@ -67,7 +67,7 @@ namespace RentApp.Controllers
 				return Ok(db.Services.Where(x => x.Approved == true).ToList());
 			}
         }
-
+        [Authorize]
         [HttpGet]
         [Route ("service/{id}")]
         [ResponseType(typeof(Service))]
@@ -116,6 +116,7 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("service")]
         [ResponseType(typeof(Service))]
@@ -173,6 +174,7 @@ namespace RentApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager,Admin")]
         [Route("image/upload")]
         [AllowAnonymous]
         public async Task<HttpResponseMessage> PostUserImage()

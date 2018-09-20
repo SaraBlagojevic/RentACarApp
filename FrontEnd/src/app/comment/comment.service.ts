@@ -12,7 +12,13 @@ export class HttpCommentService{
     }
 
     getComments(): Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"comment/comments").map(this.extractData);        
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+"comment/comments",opts).map(this.extractData);        
     }
 
     private extractData(res: Response) {
@@ -21,7 +27,13 @@ export class HttpCommentService{
     }
 
     getComment(Id:number){
-        return this.http.get(this.appUrl.RootLocation+'comment/comment/'+Id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'comment/comment/'+Id,opts).map(this.extractData);
     }
 
     postComment(comment: Comment): Observable<any>  {
@@ -29,7 +41,7 @@ export class HttpCommentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
@@ -52,7 +64,7 @@ export class HttpCommentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 

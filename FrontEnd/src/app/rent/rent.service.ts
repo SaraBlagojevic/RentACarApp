@@ -15,10 +15,9 @@ export class HttpRentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
-
         return this.http.get(this.appUrl.RootLocation+"rent/rents",opts).map(this.extractData);        
     }
 
@@ -27,7 +26,7 @@ export class HttpRentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
@@ -36,7 +35,13 @@ export class HttpRentService{
 
 
     getRent(Id:number){
-        return this.http.get(this.appUrl.RootLocation+'rent/rent/'+Id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'rent/rent/'+Id,opts).map(this.extractData);
     }
 
     postRent(rent: Rent): Observable<any>  {
@@ -44,7 +49,7 @@ export class HttpRentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
@@ -52,7 +57,13 @@ export class HttpRentService{
     }
 
     deleteRent(Id:number){
-        return this.http.delete(this.appUrl.RootLocation + 'rent/rent/'+ Id);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.delete(this.appUrl.RootLocation + 'rent/rent/'+ Id,opts);
     }
 
     approveRent(rent: Rent): Observable<any>  {
@@ -60,10 +71,9 @@ export class HttpRentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
-
         return this.http.put(this.appUrl.RootLocation+'rent/rentAprrove/'+rent.Id, rent , opts);
     }
 
@@ -73,7 +83,7 @@ export class HttpRentService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 

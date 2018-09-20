@@ -18,7 +18,7 @@ namespace RentApp.Controllers
     public class TypeOfVehiclesController : ApiController
     {
         private RADBContext db = new RADBContext();
-
+        [Authorize]
         [HttpGet]
         [Route("vehicleTypes", Name = "VehicleTypesApi")]
         public IHttpActionResult GetTypes()
@@ -26,7 +26,7 @@ namespace RentApp.Controllers
             var l = this.db.Types.ToList();
             return Ok(l);
         }
-
+        [Authorize]
         [HttpGet]
         [Route("vehicleType/{id}")]
         [ResponseType(typeof(TypeOfVehicle))]

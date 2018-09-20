@@ -45,7 +45,7 @@ namespace RentApp.Controllers
 			return Ok(l);
 		}
 
-		[Authorize(Roles = "Manager,Admin")]
+		[Authorize(Roles = "Admin")]
 		[HttpPut]
 		[Route("comment/{id}")]
 		[ResponseType(typeof(void))]
@@ -96,7 +96,7 @@ namespace RentApp.Controllers
 		}
 
 		// DELETE: api/Branches/5
-		[Authorize(Roles = "Manager,Admin")]
+		[Authorize(Roles = "Admin")]
 		[HttpDelete]
 		[Route("comment/{id}")]
 		[ResponseType(typeof(Branch))]

@@ -29,14 +29,20 @@ export class HttpBranchService{
     }
 
     getBranch(Id:number){
-        return this.http.get(this.appUrl.RootLocation+'branch/branch/'+Id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'branch/branch/'+Id,opts).map(this.extractData);
     }
 
     getLogoUrlForBranch(id:number):Observable<Response>{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
@@ -79,7 +85,14 @@ export class HttpBranchService{
 
     getBranchesForService(id:number)
     {
-        return this.http.get(this.appUrl.RootLocation+'branch/brancheForServiceId/'+id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'branch/brancheForServiceId/'+id,opts).map(this.extractData);
     }
 
     

@@ -29,18 +29,30 @@ export class HttpServiceService{
     }
 
     getUserByUsername(username:string){
-        return this.http.get(this.appUrl.RootLocation+'appUser/appUsers/'+ username).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'appUser/appUsers/'+ username,opts).map(this.extractData);
     }
 
     getService(Id:number){
-        return this.http.get(this.appUrl.RootLocation+'service/service/'+Id).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+'service/service/'+Id,opts).map(this.extractData);
     }
 
     getLogoUrlForService(id:number):Observable<Response>{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 

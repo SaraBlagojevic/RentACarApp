@@ -11,11 +11,23 @@ export class HttpUsersService{
     }
 
     getManagers(): Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"appUser/managers").map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+"appUser/managers",opts).map(this.extractData);
     }
 
     getUser(username:string):Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"appUser/manager/"+username).map(this.extractData);
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        return this.http.get(this.appUrl.RootLocation+"appUser/manager/"+username,opts).map(this.extractData);
     }
 
     saveManager(manager:Manager){
@@ -23,7 +35,7 @@ export class HttpUsersService{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-type', 'application/json');
-
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
         

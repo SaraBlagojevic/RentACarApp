@@ -22,6 +22,7 @@ namespace RentApp.Controllers
         private RADBContext db = new RADBContext();
         public static object lockObj = new object();
         // GET: api/Rents
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("rents", Name = "RentApi")]
         public IHttpActionResult GetRents()
@@ -31,6 +32,7 @@ namespace RentApp.Controllers
         }
 
         // GET: api/Rents/5
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("rent/{id}")]
         [ResponseType(typeof(Rent))]
@@ -45,6 +47,7 @@ namespace RentApp.Controllers
         }
 
         // PUT: api/Rents/5
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("rent/{id}")]
         [ResponseType(typeof(void))]
@@ -81,6 +84,7 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
         // PUT: api/Rents/5
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("rentAprrove/{id}")]
         [ResponseType(typeof(void))]
@@ -117,6 +121,7 @@ namespace RentApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
         // POST: api/Rents
+        [Authorize]
         [HttpPost]
         [Route("rent")]
         [ResponseType(typeof(Rent))]
@@ -165,6 +170,8 @@ namespace RentApp.Controllers
         }
 
         // DELETE: api/Rents/5
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
         [ResponseType(typeof(Rent))]
         public IHttpActionResult DeleteRent(int id)
         {

@@ -36,7 +36,7 @@ namespace RentApp.Controllers
 				_userManager = value;
 			}
 		}
-
+        [Authorize]
 		[HttpGet]
         [Route("branches", Name = "BranchApi")]
         public IHttpActionResult GetBranches()
@@ -59,6 +59,7 @@ namespace RentApp.Controllers
 				return Ok(db.Branches.Where(x => x.Service.Approved == true).ToList());
 			}
         }
+        [Authorize]
         [HttpGet]
         [Route("branch/{id}")]
         [ResponseType(typeof(Branch))]
@@ -72,6 +73,7 @@ namespace RentApp.Controllers
 
             return Ok(branch);
         }
+        [Authorize]
         [HttpGet]
         [Route("brancheForServiceId/{id}")]
         public IHttpActionResult GetBranchesForServiceId(int id)
@@ -116,7 +118,7 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         [HttpPost]
         [Route("branch")]
         [ResponseType(typeof(Branch))]
