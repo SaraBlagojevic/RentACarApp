@@ -87,6 +87,11 @@ export class VehicleEditComponent implements OnInit {
       this.vehicleForEdit.Manufactor = vehicle.Manufactor;
       this.vehicleForEdit.Service_Id = vehicle.Service_Id;
       this.vehicleForEdit.TypeOfVehicle_Id=vehicle.TypeOfVehicle_Id;
+     
+      if (this.adminRole)
+      this.vehicleForEdit.Available = vehicle.Available;
+      else  
+      this.vehicleForEdit.Available = this.eVehicle.Available;
   
 
       this.httpVehicleService.editVehicle(this.vehicleForEdit).subscribe(
@@ -97,19 +102,7 @@ export class VehicleEditComponent implements OnInit {
           },
           error => {alert("Close!"); console.log(error);}
         );
-     /*   if(this.adminRole==true){
-          if (accommodation.Approved == true)
-          {
-            this.httpAccommodationService.approveAccommodation(accommodation.Id).subscribe(
-              ()=>{
-                 console.log('Approve changed.');
-              },
-              error => {alert("Close!"); console.log(error);}
-
-            );
-          }
-        }*/
-       
+    
   }
 
 }

@@ -12,13 +12,17 @@ export class HttpRentService{
     }
 
     getRents(): Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"rent/rents").map(this.extractData);        
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+
+        return this.http.get(this.appUrl.RootLocation+"rent/rents",opts).map(this.extractData);        
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body || [];
-    }
+   
     getImageUrlForRent(id:number):Observable<Response>{
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -44,7 +48,7 @@ export class HttpRentService{
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
-        return this.http.post(this.appUrl.RootLocation+'rent/rent', rent , opts);
+        return this.http.post(this.appUrl.RootLocation+'rent/rent', rent , opts).map(this.extractData);
     }
 
     deleteRent(Id:number){
@@ -64,7 +68,7 @@ export class HttpRentService{
     }
 
 
-    editRoom(rent:Rent){
+    editRent(rent:Rent){
 
         const headers: Headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -73,6 +77,13 @@ export class HttpRentService{
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
 
-        return this.http.put(this.appUrl.RootLocation+'room/room/'+rent.Id, rent , opts);
+        return this.http.put(this.appUrl.RootLocation+'rent/rent/'+rent.Id, rent , opts);
     }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || [];
+    }
+
+    
 }

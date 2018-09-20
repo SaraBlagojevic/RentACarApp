@@ -9,6 +9,7 @@ import {Service} from "./service.model";
 import {ServiceAddComponent} from "./service-add/service-add.component"
 import {ServiceEditComponent} from "./service-edit/service-edit.component";
 import { HttpUsersService } from '../managers/users.service';
+import { ServiceCommentsComponent } from './service-comments/service-comments.component';
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
@@ -131,4 +132,19 @@ export class ServiceComponent implements OnInit {
     });
 
   }
+  commentDialog(service:Service){
+    let config = new MdDialogConfig();
+    config.data = service;
+    config.height = '700px';
+    config.width = '850px';
+    
+    let dialogRef = this.dialog.open(ServiceCommentsComponent,config);
+    dialogRef.componentInstance.commentService = service;
+    dialogRef.componentInstance.adminRole = this.adminRole;
+    dialogRef.afterClosed().subscribe(result => {
+    
+    this.ngOnInit();
+
+  });
+}
 }

@@ -8,6 +8,7 @@ import { Branch } from '../branch/branch.model';
 import { HttpBranchService } from '../branch/branch.service';
 import { NgForm } from '@angular/forms';
 import { ImageuploadComponent } from '../imageupload/imageupload.component';
+import { error } from 'util';
 
 @Component({
   selector: 'app-rent',
@@ -24,6 +25,7 @@ export class RentComponent implements OnInit {
   public userRole:boolean;
   public rents : Array<Rent>;
   public branches: Array<Branch>;
+  public errorMessage: string;
 
   constructor(
     private httpRentService : HttpRentService,private httpBranchService:HttpBranchService,
@@ -84,10 +86,13 @@ export class RentComponent implements OnInit {
           this.snackBar.open("Rent successfuly posted", "", { duration: 2500,});
           this.router.navigate(['/vehicle']);
           this.openSnackBar("Succesfuly reserve","");
-          
         },
-        error => {alert(); console.log(error);}
-      );
+        (error: any) => {
+          this.errorMessage = error.json();
+          debugger;
+          console.log(error);
+      });
+      
       this.ngOnInit();
    
   }

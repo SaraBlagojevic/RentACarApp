@@ -11,7 +11,8 @@ namespace RentApp.Models.Entities
         {
             this.Branches = new HashSet<Branch>();
             this.Vehicles = new HashSet<Vehicle>();
-        }
+			this.Comments = new HashSet<Comment>();
+		}
         public int Id { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
@@ -21,5 +22,6 @@ namespace RentApp.Models.Entities
 
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         public virtual ICollection<Branch> Branches { get; set; }
-    }
+		public virtual ICollection<Comment> Comments { get; set; }
+	}
 }

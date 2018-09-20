@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 
@@ -23,17 +25,47 @@ namespace RentApp.Controllers
         public const string ServerUrl = "http://localhost:51680";
         public const int MaxImageSize = 1024 * 1024 * 6;
 
-        public ServicesController(DbContext context)
+		private ApplicationUserManager _userManager;
+
+		public ApplicationUserManager UserManager
+		{
+			get
+			{
+				return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			}
+			private set
+			{
+				_userManager = value;
+			}
+		}
+
+		public ServicesController(DbContext context)
         {
             db = context as RADBContext;
         }
 
         [HttpGet]
+		[AllowAnonymous]
         [Route("services", Name = "ServiceApi")]
         public IHttpActionResult GetServices()
         {
-            var l = db.Services.ToList();
-            return Ok(l);
+			var username = User.Identity.GetUserName();
+			if (username == null)
+			{
+				return Ok(db.Services.Where(x => x.Approved == true).ToList());
+			}
+			var user = UserManager.FindByName(username);
+			var userRole = user.Roles.FirstOrDefault();
+			var role = db.Roles.SingleOrDefault(r => r.Id == userRole.RoleId);
+
+			if (role.Name == "Admin")
+			{
+				return Ok(db.Services.ToList());
+			}
+			else
+			{
+				return Ok(db.Services.Where(x => x.Approved == true).ToList());
+			}
         }
 
         [HttpGet]

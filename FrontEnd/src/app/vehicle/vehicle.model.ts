@@ -8,7 +8,7 @@ export class Vehicle{
     Description:string;
     PricePerHour: number;
     Manufactor:string;
-    Aveable: boolean;
+    Available: boolean;
     Image: string;
 
     Service:Service;

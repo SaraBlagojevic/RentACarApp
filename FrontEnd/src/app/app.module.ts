@@ -39,7 +39,10 @@ import { HttpUsersService } from './managers/users.service';
 import { RentComponent } from './rent/rent.component';
 import {HttpRentService} from "../app/rent/rent.service";
 import { AllrentsComponent } from './allrents/allrents.component';
-import { CommentComponent } from './comment/comment.component'
+import { CommentComponent } from './comment/comment.component';
+import { ServiceCommentsComponent } from './service/service-comments/service-comments.component';
+import { CommentAddComponent } from './comment/comment-add/comment-add.component'
+import { HttpCommentService } from './comment/comment.service';
 
 const Routes=[
   {path: "register",component:RegisterComponent},
@@ -78,11 +81,13 @@ const Routes=[
     ManagersComponent,
     RentComponent,
     AllrentsComponent,
-    CommentComponent
+    CommentComponent,
+    ServiceCommentsComponent,
+    CommentAddComponent
     
   ],
   entryComponents: [ImageuploadComponent,BranchAddComponent,MapComponent,BranchEditComponent,
-    VehicleAddComponent,VehicleEditComponent,VehicleTypeAddComponent,VehicleTypeEditComponent,RentComponent],
+    VehicleAddComponent,VehicleEditComponent,VehicleTypeAddComponent,VehicleTypeEditComponent,RentComponent,ServiceCommentsComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -93,7 +98,7 @@ const Routes=[
     BrowserAnimationsModule,NgxPaginationModule,AgmCoreModule.forRoot({apiKey: 'AIzaSyAtvp71DTpNaEw59EcmxvFMQOKRyRUiArg'})
   ],
   providers: [HttpAuthenticationService,AppUrl,AdminGuard,ManagerGuard,HttpVehicleTypeService,HttpBranchService,HttpServiceService,HttpVehicleService
-  ,HttpUsersService,HttpRentService],
+  ,HttpUsersService,HttpRentService,HttpCommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

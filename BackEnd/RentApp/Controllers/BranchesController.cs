@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using RentApp.Models.Entities;
 using RentApp.Persistance;
 
@@ -20,12 +22,42 @@ namespace RentApp.Controllers
     {
         private RADBContext db = new RADBContext();
         public const string ServerUrl = "http://localhost:51680";
-        [HttpGet]
+
+		private ApplicationUserManager _userManager;
+
+		public ApplicationUserManager UserManager
+		{
+			get
+			{
+				return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			}
+			private set
+			{
+				_userManager = value;
+			}
+		}
+
+		[HttpGet]
         [Route("branches", Name = "BranchApi")]
         public IHttpActionResult GetBranches()
         {
-            var l = db.Branches.ToList();
-            return Ok(l);
+			var username = User.Identity.GetUserName();
+			if (username == null)
+			{
+				return Ok(db.Branches.Where(x => x.Service.Approved == true).ToList());
+			}
+			var user = UserManager.FindByName(username);
+			var userRole = user.Roles.FirstOrDefault();
+			var role = db.Roles.SingleOrDefault(r => r.Id == userRole.RoleId);
+
+			if (role.Name == "Admin")
+			{
+				return Ok(db.Branches.ToList());
+			}
+			else
+			{
+				return Ok(db.Branches.Where(x => x.Service.Approved == true).ToList());
+			}
         }
         [HttpGet]
         [Route("branch/{id}")]

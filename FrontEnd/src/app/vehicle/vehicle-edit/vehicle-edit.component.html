@@ -60,6 +60,11 @@
         </md-select>
         <div *ngIf="f.submitted && !typeOfVehicle_Id.valid">Vehicle Type is required</div>
       </div>
+      <div *ngIf="adminRole==true">
+        <section class="example-section">
+            <md-checkbox class="example-margin" [(ngModel)]="eVehicle.Available" name ="Available">Available</md-checkbox>
+        </section>
+      </div>
     
       <button md-mini-fab color="primary" type="submit">
             <md-icon>edit</md-icon>

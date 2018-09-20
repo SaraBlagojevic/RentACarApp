@@ -12,7 +12,14 @@ export class HttpBranchService{
     }
 
     getBranches(): Observable<any> {
-        return this.http.get(this.appUrl.RootLocation+"branch/branches").map(this.extractData);        
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+
+        return this.http.get(this.appUrl.RootLocation+"branch/branches",opts).map(this.extractData);        
     }
 
 

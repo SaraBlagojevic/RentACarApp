@@ -5,5 +5,6 @@ export class Service{
     Logo:string;
     Email:string;
     Description:string;
+    Approved:boolean;
 
 }

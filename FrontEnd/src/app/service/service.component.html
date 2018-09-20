@@ -1,5 +1,5 @@
 
-<div *ngIf="userUndefined==true || appUser==true ">
+<div *ngIf="userUndefined==true">
     <div class="example-card-div"  *ngFor="let service of services "  >
      
         <md-card class="example-card">
@@ -21,6 +21,31 @@
         </md-card>
       </div>
     </div>
+
+    <div *ngIf="appUser==true ">
+      <div class="example-card-div"  *ngFor="let service of services "  >
+       
+          <md-card class="example-card">
+            <md-card-header>
+              <div md-card-avatar class="example-header-image"></div>
+              <md-card-title>{{service.Name}} 
+              </md-card-title>
+            </md-card-header>
+            <img class="imegeInCard" md-card-image src={{service.Logo}} />
+            <md-card-content>
+              <p>
+              Opis: {{service.Description}}
+              </p>
+              <p>
+              Email: {{service.Email}}
+                </p>
+            </md-card-content>
+            <md-card-actions>
+              <button md-raised-button color="primary" (click) = "commentDialog(service)">Comments</button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </div>
 
 
 <div *ngIf="managerRole==true">
@@ -75,6 +100,8 @@
       <button md-fab  color="primary" (click) = "delete(service)" >
               <md-icon >delete</md-icon>
       </button>
+        <button md-raised-button color="primary" (click) = "commentDialog(service)">Comments</button>
+    
   </md-card-actions>
 </md-card>
 </div>

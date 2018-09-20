@@ -16,7 +16,8 @@ namespace RentApp.Persistance
         public virtual DbSet<Rent> Rents { get; set; }
         public virtual DbSet<TypeOfVehicle> Types { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
-        public RADBContext() : base("name=RADB")
+		public virtual DbSet<Comment> Comments { get; set; }
+		public RADBContext() : base("name=RADB")
         {
         }
 
@@ -24,5 +25,6 @@ namespace RentApp.Persistance
         {
             return new RADBContext();
         }
-    }
+
+	}
 }

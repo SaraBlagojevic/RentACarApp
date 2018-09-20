@@ -86,16 +86,19 @@ namespace RentApp.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRentApprove(int id,Rent rent)
         {
-            Rent rentForChange = db.Rents.Find(id);
-            if (rent != null)
-            {
-                rentForChange.Approved = rent.Approved;
-            }
-            else
-            {
-                return StatusCode(HttpStatusCode.BadRequest);  
-            }
-            db.Entry(rentForChange).State = EntityState.Modified;
+			lock (lockObj)
+			{
+				Rent rentForChange = db.Rents.Find(id);
+				if (rent != null)
+				{
+					rentForChange.Approved = rent.Approved;
+				}
+				else
+				{
+					return StatusCode(HttpStatusCode.BadRequest);
+				}
+				db.Entry(rentForChange).State = EntityState.Modified;
+			}
             try
             {
                 db.SaveChanges();
@@ -128,7 +131,6 @@ namespace RentApp.Controllers
                 lock (lockObj)
                 {
                     db.Rents.Add(rent);
-
                     try
                     {
                         db.SaveChanges();
@@ -148,7 +150,7 @@ namespace RentApp.Controllers
             }
             else
             {
-                var rents = this.db.Rents.Where(x => x.Vehicle_Id == rent.Vehicle_Id && rentPom.Approved == true).ToList();
+                var rents = this.db.Rents.Where(x => x.Vehicle_Id == rent.Vehicle_Id && x.Approved == true).ToList();
 
                 string msg = "Vehicle is busy at: ";
 
@@ -158,8 +160,7 @@ namespace RentApp.Controllers
                 }
                 return Content(HttpStatusCode.BadRequest, msg);
             }
-            db.Rents.Add(rent);
-            db.SaveChanges();
+           
             return CreatedAtRoute("RentApi", new { id = rent.Id }, rent);
         }
 

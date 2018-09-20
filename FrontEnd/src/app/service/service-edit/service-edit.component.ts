@@ -64,6 +64,10 @@ export class ServiceEditComponent implements OnInit {
       this.serviceForEdit.Email=service.Email;
       this.serviceForEdit.Description=service.Description;
       this.serviceForEdit.Logo=service.Logo;
+      if (this.adminRole)
+      this.serviceForEdit.Approved = service.Approved;
+      else  
+      this.serviceForEdit.Approved = this.eService.Approved;
   
 
       this.httpServiceService.editService(this.serviceForEdit).subscribe(
