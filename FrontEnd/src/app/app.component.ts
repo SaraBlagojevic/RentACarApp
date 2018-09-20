@@ -125,6 +125,10 @@ export class AppComponent {
         {
             route: ['/managers'],
             label: "Managers"
+        },
+        {
+            route: ['/rents'],
+            label: "Rents"
         }
     ]
      

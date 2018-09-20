@@ -35,6 +35,9 @@
             <div class="nav_bar">
                 <a *ngIf="adminRole==true" md-tab-link [routerLink]="['/managers']" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">Managers</a>
             </div>
+            <div class="nav_bar">
+                <a *ngIf="adminRole==true" md-tab-link [routerLink]="['/rents']" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">Rents</a>
+            </div>
       </nav>
     </div>
  

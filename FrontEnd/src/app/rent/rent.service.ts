@@ -51,6 +51,19 @@ export class HttpRentService{
         return this.http.delete(this.appUrl.RootLocation + 'rent/rent/'+ Id);
     }
 
+    approveRent(rent: Rent): Observable<any>  {
+        
+        const headers: Headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+
+        return this.http.put(this.appUrl.RootLocation+'rent/rentAprrove/'+rent.Id, rent , opts);
+    }
+
+
     editRoom(rent:Rent){
 
         const headers: Headers = new Headers();

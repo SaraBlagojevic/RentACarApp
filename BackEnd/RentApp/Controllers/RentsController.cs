@@ -20,7 +20,7 @@ namespace RentApp.Controllers
     {
         public const string ServerUrl = "http://localhost:51680";
         private RADBContext db = new RADBContext();
-
+        public static object lockObj = new object();
         // GET: api/Rents
         [HttpGet]
         [Route("rents", Name = "RentApi")]
@@ -80,15 +80,83 @@ namespace RentApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        // PUT: api/Rents/5
+        [HttpPut]
+        [Route("rentAprrove/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutRentApprove(int id,Rent rent)
+        {
+            Rent rentForChange = db.Rents.Find(id);
+            if (rent != null)
+            {
+                rentForChange.Approved = rent.Approved;
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.BadRequest);  
+            }
+            db.Entry(rentForChange).State = EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RentExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
         // POST: api/Rents
         [HttpPost]
         [Route("rent")]
         [ResponseType(typeof(Rent))]
-        public IHttpActionResult PostBranch(Rent rent)
+        public IHttpActionResult PostRent(Rent rent)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            if (validateReservation(rent))
+            {
+                lock (lockObj)
+                {
+                    db.Rents.Add(rent);
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateException)
+                    {
+                        if (RentExists(rent.Id))
+                        {
+                            return Conflict();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var rents = this.db.Rents.Where(x => x.Vehicle_Id == rent.Vehicle_Id && rentPom.Approved == true).ToList();
+
+                string msg = "Vehicle is busy at: ";
+
+                foreach (var rentPom in rents)
+                {
+                    msg += "  [" + rentPom.StartDate.Value.ToShortDateString() + "  -  " + rentPom.EndDate.Value.ToShortDateString() + "]";
+                }
+                return Content(HttpStatusCode.BadRequest, msg);
             }
             db.Rents.Add(rent);
             db.SaveChanges();
@@ -131,6 +199,55 @@ namespace RentApp.Controllers
 
             }
             return null;
+        }
+
+        public bool validateReservation(Rent rent)
+        {
+            if (rent.StartDate > rent.EndDate)
+                return false;
+            List<Rent> rentList = db.Rents
+                .Where(rentPom => rentPom.Vehicle_Id == rent.Vehicle_Id && rentPom.Approved == true)
+                .ToList();
+
+            foreach (var rentinL in rentList)
+            {
+                if (Intersects(rentinL, rent))
+                    return false;
+            }
+
+            return true;
+        }
+
+
+        public bool Intersects(Rent rent1, Rent rent2)
+        {
+            if (rent1.StartDate > rent1.EndDate || rent2.StartDate > rent2.EndDate)
+                return false;
+
+            if (rent1.StartDate == rent1.EndDate || rent2.StartDate == rent2.EndDate)
+                return false; // No actual date range
+
+            if (rent1.StartDate == rent2.StartDate || rent1.EndDate == rent2.EndDate)
+                return true; // If any set is the same time, then by default there must be some overlap. 
+
+            if (rent1.StartDate < rent2.StartDate)
+            {
+                if (rent1.EndDate > rent2.StartDate && rent1.EndDate < rent2.EndDate)
+                    return true; // Condition 1
+
+                if (rent1.EndDate > rent2.EndDate)
+                    return true; // Condition 3
+            }
+            else
+            {
+                if (rent2.EndDate > rent1.StartDate && rent2.EndDate < rent1.EndDate)
+                    return true; // Condition 2
+
+                if (rent2.EndDate > rent1.EndDate)
+                    return true; // Condition 4
+            }
+
+            return false;
         }
 
         protected override void Dispose(bool disposing)

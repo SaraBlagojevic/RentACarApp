@@ -78,22 +78,17 @@ export class RentComponent implements OnInit {
     this.postRent.BranchReturn_Id = rent.BranchReturn_Id;
     this.postRent.Image = rent.Image;
 
-    //g = this.checkRoomReservations(room,roomRes);
-
-    if (true)
-    {
      this.httpRentService.postRent(this.postRent).subscribe(
-        ()=>{ 
+        (data:any)=>{ 
           console.log('Rent successfuly posted');
           this.snackBar.open("Rent successfuly posted", "", { duration: 2500,});
           this.router.navigate(['/vehicle']);
           this.openSnackBar("Succesfuly reserve","");
           
         },
-        error => {alert("Close!"); console.log(error);}
+        error => {alert(); console.log(error);}
       );
       this.ngOnInit();
-    }
    
   }
   openChooseImagesDialog(){

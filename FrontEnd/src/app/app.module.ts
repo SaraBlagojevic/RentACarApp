@@ -37,7 +37,9 @@ import { HttpVehicleService } from './vehicle/vehicle.service';
 import { ManagersComponent } from './managers/managers.component';
 import { HttpUsersService } from './managers/users.service';
 import { RentComponent } from './rent/rent.component';
-import {HttpRentService} from "../app/rent/rent.service"
+import {HttpRentService} from "../app/rent/rent.service";
+import { AllrentsComponent } from './allrents/allrents.component';
+import { CommentComponent } from './comment/comment.component'
 
 const Routes=[
   {path: "register",component:RegisterComponent},
@@ -49,7 +51,7 @@ const Routes=[
   {path: "vehicle",component:VehicleComponent, },
   {path: "vehicleType",component:VehicleTypeComponent, },
   {path:"managers",component:ManagersComponent},
-  {path:"rent",component:RentComponent}
+  {path:"rents",component:AllrentsComponent}
   
 ]
 @NgModule({
@@ -74,11 +76,13 @@ const Routes=[
     VehicleAddComponent,
     VehicleEditComponent,
     ManagersComponent,
-    RentComponent
+    RentComponent,
+    AllrentsComponent,
+    CommentComponent
     
   ],
   entryComponents: [ImageuploadComponent,BranchAddComponent,MapComponent,BranchEditComponent,
-    VehicleAddComponent,VehicleEditComponent,VehicleTypeAddComponent,VehicleTypeEditComponent],
+    VehicleAddComponent,VehicleEditComponent,VehicleTypeAddComponent,VehicleTypeEditComponent,RentComponent],
   imports: [
     BrowserModule,
     FormsModule,
